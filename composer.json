@@ -1,0 +1,13 @@
+{
+    "name": "shotonoff/binary-search-tree-avl",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "authors": [
+        {
+            "name": "Dmitrii Golubev",
+            "email": "shotonoff@gmail.com"
+        }
+    ]
+}
