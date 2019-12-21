@@ -27,7 +27,16 @@ class AVLTreeTest extends TestCase
                     'postOrder' => [9, 8, 7, 6, 5, 4, 3, 2, 1],
                     'bsf' => [4, 2, 6, 1, 3, 5, 8, 7, 9],
                     'inOrder' => [4, 2, 1, 3, 6, 5, 8, 7, 9],
-                ]
+                ],
+            ],
+            [
+                [9, 8, 7, 6, 5, 4, 3, 2, 1],
+                [
+                    'preOrder' => [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    'postOrder' => [9, 8, 7, 6, 5, 4, 3, 2, 1],
+                    'bsf' => [6, 4, 8, 2, 5, 7, 9, 1, 3],
+                    'inOrder' => [6, 4, 2, 1, 3, 5, 8, 7, 9],
+                ],
             ],
         ];
     }
@@ -42,7 +51,7 @@ class AVLTreeTest extends TestCase
      * @dataProvider getProvidedData
      * @covers ::insert()
      */
-    public function testPreOrderIterator(array $input, array $expected): void
+    public function testIterators(array $input, array $expected): void
     {
         $tree = new AVLTree();
 
