@@ -15,9 +15,9 @@ class AVLTree implements TreeInterface, \IteratorAggregate
     /**
      * Root node of the tree
      *
-     * @var AVLNode
+     * @var AVLNode|null
      */
-    private AVLNode $root;
+    public ?AVLNode $root = null;
 
     /**
      * Tree's iterator, by default using PreOrderIterator

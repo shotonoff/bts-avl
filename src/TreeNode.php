@@ -15,14 +15,14 @@ class TreeNode
     /**
      * Left child node
      *
-     * @var TreeNode
+     * @var TreeNode|null
      */
-    public TreeNode $left;
+    public ?TreeNode $left = null;
 
     /**
      * Right child node
      *
-     * @var TreeNode
+     * @var TreeNode|null
      */
-    public TreeNode $right;
+    public ?TreeNode $right = null;
 }
