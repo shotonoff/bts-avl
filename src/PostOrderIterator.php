@@ -20,9 +20,7 @@ class PostOrderIterator implements BinaryTreeIteratorInterface
                 $root = $st->pop();
                 yield $root->value;
                 $root = $root->left;
-            }
-
-            if ($root->right) {
+            } elseif ($root->right) {
                 $st->push($root);
                 $root = $root->right;
             } else {

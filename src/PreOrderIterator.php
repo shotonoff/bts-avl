@@ -20,9 +20,7 @@ class PreOrderIterator implements BinaryTreeIteratorInterface
                 $root = $st->pop();
                 yield $root->value;
                 $root = $root->right;
-            }
-
-            if ($root->left) {
+            } elseif ($root->left) {
                 $st->push($root);
                 $root = $root->left;
             } else {
