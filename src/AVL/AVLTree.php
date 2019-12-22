@@ -197,11 +197,92 @@ class AVLTree implements TreeInterface, \IteratorAggregate
     }
 
     /**
+     * Delete a node by a given value
+     *
      * @param $value
      */
     public function delete($value): void
     {
-        // TODO: Implement delete() method.
+        $this->root = $this->deleteRecursively($this->root, $value);
+    }
+
+    /**
+     * Delete a node in recursive manner
+     *
+     * @param AVLNode|null $root
+     * @param mixed $value
+     * @return AVLNode|null
+     */
+    private function deleteRecursively(?AVLNode $root, $value): ?AVLNode
+    {
+        if ($root === null) {
+            return null;
+        }
+
+        if ($root->value === $value) {
+            if ($root->right === null) {
+                return $root->left;
+            }
+
+            $min = $this->findMin($root->right);
+            $min->right = $this->removeMin($root->right);
+            $min->left = $root->left;
+
+            return $this->balance($min);
+        }
+
+        if ($root->value > $value) {
+            $root->left = $this->deleteRecursively($root->left, $value);
+        } else {
+            $root->right = $this->deleteRecursively($root->right, $value);
+        }
+
+        return $this->balance($root);
+    }
+
+    private function removeMin(AVLNode $root): ?AVLNode
+    {
+        if ($root->left === null) {
+            return $root->right;
+        }
+
+        $root->left = $this->removeMin($root->left);
+
+        return $this->balance($root);
+    }
+
+    /**
+     *
+     *
+     * @param AVLNode $root
+     * @return mixed|AVLNode
+     */
+    private function findMin(AVLNode $root)
+    {
+        while ($root->left !== null) {
+            $root = $root->left;
+        }
+
+        return $root;
+    }
+
+    private function find($value): ?AVLNode
+    {
+        $root = $this->root;
+
+        while ($root !== null) {
+            if ($root->value === $value) {
+                return $root;
+            }
+
+            if ($root->value > $value) {
+                $root = $root->left;
+            } else {
+                $root = $root->right;
+            }
+        }
+
+        return null;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Shotonoff\DataStructure\Tests\BTS\AVL;
+namespace Shotonoff\DataStructure\BTS\Tests\AVL;
 
 use PHPUnit\Framework\TestCase;
 use Shotonoff\DataStructure\BTS\AVL\AVLTree;
@@ -11,6 +11,8 @@ use Shotonoff\DataStructure\BTS\PreOrderIterator;
 
 /**
  * Class AVLTreeTest
+ *
+ * @coversDefaultClass \Shotonoff\DataStructure\BTS\AVL\AVLTree
  */
 class AVLTreeTest extends TestCase
 {
@@ -50,14 +52,14 @@ class AVLTreeTest extends TestCase
      *
      * @dataProvider getProvidedData
      * @covers ::insert()
+     * @covers       \Shotonoff\DataStructure\BTS\PreOrderIterator::iterate()
+     * @covers       \Shotonoff\DataStructure\BTS\PostOrderIterator::iterate()
+     * @covers       \Shotonoff\DataStructure\BTS\BFSIterator::iterate()
+     * @covers       \Shotonoff\DataStructure\BTS\InOrderIterator::iterate()
      */
     public function testIterators(array $input, array $expected): void
     {
-        $tree = new AVLTree();
-
-        foreach ($input as $n) {
-            $tree->insert($n);
-        }
+        $tree = $this->prepareTree($input);
 
         $tree->setIterator(new PreOrderIterator());
         self::assertEquals($expected['preOrder'], $tree->toArray());
@@ -70,5 +72,42 @@ class AVLTreeTest extends TestCase
 
         $tree->setIterator(new InOrderIterator());
         self::assertEquals($expected['inOrder'], $tree->toArray());
+    }
+
+    /**
+     * @return void
+     *
+     * @covers ::delete()
+     */
+    public function testDelete(): void
+    {
+        $tree = $this->prepareTree([2, 8, 1, 4, 5, 6, 7, 9, 3]);
+
+        self::assertEquals([1, 2, 3, 4, 5, 6, 7, 8, 9], $tree->toArray());
+
+        $tree->delete(2);
+
+        self::assertEquals([1, 3, 4, 5, 6, 7, 8, 9], $tree->toArray());
+
+        $tree->delete(9);
+        $tree->delete(1);
+        $tree->delete(4);
+
+        self::assertEquals([3, 5, 6, 7, 8], $tree->toArray());
+    }
+
+    /**
+     * @param int[] $input
+     * @return AVLTree
+     */
+    private function prepareTree(array $input): AVLTree
+    {
+        $tree = new AVLTree();
+
+        foreach ($input as $n) {
+            $tree->insert($n);
+        }
+
+        return $tree;
     }
 }

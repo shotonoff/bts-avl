@@ -12,6 +12,8 @@ use Shotonoff\DataStructure\BTS\TreeNode;
 class AVLNode extends TreeNode
 {
     /**
+     * Max height of a subtree
+     *
      * @var int
      */
     public int $height = 0;
