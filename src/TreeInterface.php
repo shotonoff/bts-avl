@@ -2,6 +2,8 @@
 
 namespace Shotonoff\DataStructure\BTS;
 
+use Shotonoff\DataStructure\BTS\AVL\AVLNode;
+
 /**
  * Interface TreeInterface
  */
@@ -22,4 +24,13 @@ interface TreeInterface
      * @return void
      */
     public function delete($value): void;
+
+    /**
+     * Find node in BST by a value
+     *
+     * @param mixed $value
+     * @return AVLNode
+     * @throws TreeException If a node not found
+     */
+    public function findBy($value): AVLNode;
 }

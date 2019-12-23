@@ -29,7 +29,9 @@ class AVLNode extends TreeNode
     }
 
     /**
-     * @param AVLNode $node
+     * Compare value of current state with given
+     *
+     * @param AVLNode $node Node
      * @return bool
      */
     public function less(AVLNode $node): bool

@@ -3,6 +3,7 @@
 namespace Shotonoff\DataStructure\BTS\AVL;
 
 use Shotonoff\DataStructure\BTS\PreOrderIterator;
+use Shotonoff\DataStructure\BTS\TreeException;
 use Shotonoff\DataStructure\BTS\TreeInterface;
 use Shotonoff\DataStructure\BTS\BinaryTreeIteratorInterface;
 use Traversable;
@@ -240,6 +241,12 @@ class AVLTree implements TreeInterface, \IteratorAggregate
         return $this->balance($root);
     }
 
+    /**
+     * Remove min node of a tree
+     *
+     * @param AVLNode $root Root node of the tree
+     * @return AVLNode|null
+     */
     private function removeMin(AVLNode $root): ?AVLNode
     {
         if ($root->left === null) {
@@ -252,9 +259,9 @@ class AVLTree implements TreeInterface, \IteratorAggregate
     }
 
     /**
+     * Find a min node in a tree
      *
-     *
-     * @param AVLNode $root
+     * @param AVLNode $root Root node of the tree
      * @return mixed|AVLNode
      */
     private function findMin(AVLNode $root)
@@ -266,7 +273,10 @@ class AVLTree implements TreeInterface, \IteratorAggregate
         return $root;
     }
 
-    private function find($value): ?AVLNode
+    /**
+     * {@inheritDoc}
+     */
+    public function findBy($value): AVLNode
     {
         $root = $this->root;
 
@@ -282,7 +292,7 @@ class AVLTree implements TreeInterface, \IteratorAggregate
             }
         }
 
-        return null;
+        throw TreeException::nodeNotFound();
     }
 
     /**
